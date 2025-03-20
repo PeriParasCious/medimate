@@ -1,0 +1,38 @@
+# Style configuration for sections
+        self.style = ttk.Style()
+        self.style.configure('Section.TLabelframe', borderwidth=2, relief='solid')
+        
+        # Left section (Events)
+        self.left_frame = ttk.Frame(self.content_frame)
+        self.left_frame.grid(row=0, column=0, sticky='nsew', padx=5)
+        
+        # Ongoing Events
+        self.ongoing_frame = ttk.LabelFrame(self.left_frame, text="Ongoing Appointments", style='Section.TLabelframe')
+        self.ongoing_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 5))
+        
+        # Upcoming Events
+        self.upcoming_frame = ttk.LabelFrame(self.left_frame, text="Upcoming Appointments", style='Section.TLabelframe')
+        self.upcoming_frame.pack(fill=tk.BOTH, expand=True, pady=(5, 0))
+        
+        # Middle section (Patient Details)
+        self.middle_frame = ttk.LabelFrame(self.content_frame, text="Patient Details", style='Section.TLabelframe')
+        self.middle_frame.grid(row=0, column=1, sticky='nsew', padx=5)
+        
+        # Right section (Comments)
+        self.right_frame = ttk.LabelFrame(self.content_frame, text="Add Comments", style='Section.TLabelframe')
+        self.right_frame.grid(row=0, column=2, sticky='nsew', padx=5)
+
+    def toggle_menu(self, event):
+        # Display popup menu at button location
+        try:
+            self.popup_menu.tk_popup(event.x_root, event.y_root)
+        finally:
+            self.popup_menu.grab_release()
+
+ # Bind click event to menu button
+        self.menu_button.bind('<Button-1>', self.toggle_menu)
+        
+        # Create popup menu
+        self.popup_menu = tk.Menu(root, tearoff=0)
+        self.popup_menu.add_command(label="Profile")
+        self.popup_menu.add_command(label="Logout")
